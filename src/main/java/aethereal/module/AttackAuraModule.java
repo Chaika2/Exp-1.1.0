@@ -82,10 +82,12 @@ import net.minecraft.item.MaceItem;
 import net.minecraft.item.ShieldItem;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 @Aliases(aliases = {"Attack Aura", "Kill Aura", "Hit Aura", "Aura"})
@@ -289,6 +291,7 @@ public class AttackAuraModule extends Module {
             }
         }
         if (zRayTrace && !SlotSyncHandler.lastSprinting && !CombatPauseManager.INSTANCE.shouldPauseCombat()) {
+            syncServerRotation(clientPlayerEntity, rotationManager);
             // Обход слома щита: удар топором уходит ПЕРВЫМ и отдельным пакетом.
             // Сервер 1.16.5 (через ViaVersion) принимает только один удар в окне
             // кулдауна: при стандартной схеме "меч, потом топор" топор сервер
@@ -306,6 +309,30 @@ public class AttackAuraModule extends Module {
                 this.attackTimer.reset();
             }
         }
+    }
+
+    /**
+     * Перед ударом отправляем серверу текущий silent-поворот отдельным пакетом.
+     *
+     * Silent-rotation подставляется только внутри sendMovementPackets(), а удар
+     * уходит раньше - из RotationUpdateEvent.POST, то есть до player.tick().
+     * Из-за этого сервер проверял попадание по углу прошлого тика и мог
+     * отбросить удар ("невозможная дистанция или область атаки"). Look-пакет
+     * с актуальным углом, отправленный непосредственно перед пакетом атаки,
+     * выравнивает состояние сервера и клиента.
+     */
+    private void syncServerRotation(ClientPlayerEntity clientPlayerEntity, RotationManager rotationManager) {
+        Rotation currentRotation = rotationManager.getCurrentRotationOriginal();
+        if (currentRotation == null) {
+            return;
+        }
+        Rotation serverRotation = rotationManager.getServerRotation();
+        float yawDifference = MathHelper.wrapDegrees(currentRotation.getYaw() - serverRotation.getYaw());
+        float pitchDifference = currentRotation.getPitch() - serverRotation.getPitch();
+        if (Math.abs(yawDifference) < 0.05f && Math.abs(pitchDifference) < 0.05f) {
+            return;
+        }
+        clientPlayerEntity.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(currentRotation.getYaw(), currentRotation.getPitch(), clientPlayerEntity.isOnGround(), clientPlayerEntity.horizontalCollision));
     }
 
     public boolean breakShieldWithAxe(ClientPlayerEntity clientPlayerEntity, ClientPlayerInteractionManager clientPlayerInteractionManager) {
