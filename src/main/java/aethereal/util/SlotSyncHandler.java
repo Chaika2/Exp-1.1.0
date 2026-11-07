@@ -5,6 +5,8 @@ import aethereal.type.Mc;
 import aethereal.type.NotificationType;
 import aethereal.event.PacketReceiveEvent;
 import aethereal.event.PacketSendEvent;
+import aethereal.event.RespawnEvent;
+import aethereal.event.WorldLoadEvent;
 import aethereal.module.WidgetsModule;
 
 import java.lang.invoke.MethodHandles;
@@ -33,14 +35,28 @@ public class SlotSyncHandler implements ClientListener {
     public SlotSyncHandler() {
         Expensive.INSTANCE.eventDispatcher().register(PacketSendEvent.class, this::onPacketSend);
         Expensive.INSTANCE.eventDispatcher().register(PacketReceiveEvent.class, this::onPacketReceive);
+        // При входе в мир/респавне сервер сбрасывает состояние бега, но флаг
+        // остаётся от прошлой сессии. Если он залипнет в true, аура будет
+        // считать, что спринт не погашен, и молча не бить.
+        Expensive.INSTANCE.eventDispatcher().register(WorldLoadEvent.class, class271Var -> lastSprinting = false);
+        Expensive.INSTANCE.eventDispatcher().register(RespawnEvent.class, class272Var -> lastSprinting = false);
     }
 
     public void onPacketSend(PacketSendEvent class037Var) {
         if (mc.isWorldLoaded()) {
             net.minecraft.network.packet.Packet<?> packet = class037Var.getPacket();
             Objects.requireNonNull(packet);
-            if (packet instanceof ClientCommandC2SPacket) {
-                lastSprinting = ((ClientCommandC2SPacket) packet).getMode() == ClientCommandC2SPacket.Mode.START_SPRINTING;
+            if (packet instanceof ClientCommandC2SPacket command) {
+                // Меняем флаг только на настоящих START/STOP_SPRINTING. Раньше
+                // любой ClientCommandC2SPacket (нажатие шифта, открытие
+                // инвентаря, элитра) сбрасывал флаг в false, и аура могла
+                // отправить удар, хотя сервер всё ещё считал нас бегущими.
+                ClientCommandC2SPacket.Mode mode = command.getMode();
+                if (mode == ClientCommandC2SPacket.Mode.START_SPRINTING) {
+                    lastSprinting = true;
+                } else if (mode == ClientCommandC2SPacket.Mode.STOP_SPRINTING) {
+                    lastSprinting = false;
+                }
                 return;
             }
             if (packet instanceof UpdateSelectedSlotC2SPacket && MinecraftClient.getInstance().getCurrentServerEntry() != null) {
