@@ -1,0 +1,65 @@
+accessWidener	v2	named
+
+accessible	method	net/minecraft/client/world/ClientWorld	getPendingUpdateManager	()Lnet/minecraft/client/network/PendingUpdateManager;
+accessible	field	net/minecraft/entity/player/ItemCooldownManager$Entry	startTick	I
+accessible	field	net/minecraft/entity/player/ItemCooldownManager$Entry	endTick	I
+accessible	class	net/minecraft/client/network/ClientAdvancementManager$Listener
+accessible	class	net/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier
+accessible	class	net/minecraft/entity/player/ItemCooldownManager$Entry
+accessible	class	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractType
+accessible	class	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler
+accessible	method	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler	getType	()Lnet/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractType;
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket	type	Lnet/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler;
+accessible	class	net/minecraft/world/entity/ClientEntityManager$Listener
+accessible	field	net/minecraft/client/MinecraftClient	itemUseCooldown	I
+accessible	field	net/minecraft/client/MinecraftClient	session	Lnet/minecraft/client/session/Session;
+mutable	field	net/minecraft/client/MinecraftClient	session	Lnet/minecraft/client/session/Session;
+accessible	field	net/minecraft/client/gui/hud/BossBarHud	bossBars	Ljava/util/Map;
+accessible	field	net/minecraft/client/gui/hud/ChatHud	messages	Ljava/util/List;
+accessible	field	net/minecraft/client/gui/hud/ChatHud	visibleMessages	Ljava/util/List;
+accessible	field	net/minecraft/client/gui/screen/ingame/HandledScreen	backgroundHeight	I
+accessible	field	net/minecraft/client/gui/screen/ingame/HandledScreen	backgroundWidth	I
+accessible	field	net/minecraft/client/gui/screen/ingame/HandledScreen	focusedSlot	Lnet/minecraft/screen/slot/Slot;
+accessible	field	net/minecraft/client/gui/screen/ingame/HandledScreen	x	I
+accessible	field	net/minecraft/client/gui/screen/ingame/HandledScreen	y	I
+accessible	field	net/minecraft/client/model/ModelPart	cuboids	Ljava/util/List;
+accessible	field	net/minecraft/client/network/ClientPlayerEntity	usingItem	Z
+accessible	field	net/minecraft/client/network/ClientPlayerInteractionManager	currentBreakingProgress	F
+accessible	field	net/minecraft/client/render/item/ItemRenderState	layerCount	I
+accessible	field	net/minecraft/client/render/item/ItemRenderState	layers	[Lnet/minecraft/client/render/item/ItemRenderState$LayerRenderState;
+accessible	field	net/minecraft/client/render/item/ItemRenderState$LayerRenderState	model	Lnet/minecraft/client/render/model/BakedModel;
+accessible	field	net/minecraft/client/sound/AbstractSoundInstance	volume	F
+accessible	field	net/minecraft/client/util/InputUtil$Type	map	Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+accessible	field	net/minecraft/entity/Entity	dimensions	Lnet/minecraft/entity/EntityDimensions;
+accessible	field	net/minecraft/entity/Entity	fluidHeight	Lit/unimi/dsi/fastutil/objects/Object2DoubleMap;
+accessible	field	net/minecraft/entity/Entity	submergedFluidTag	Ljava/util/Set;
+accessible	field	net/minecraft/entity/LimbAnimator	pos	F
+accessible	field	net/minecraft/entity/LimbAnimator	prevSpeed	F
+accessible	field	net/minecraft/entity/LivingEntity	activeItemStack	Lnet/minecraft/item/ItemStack;
+accessible	field	net/minecraft/entity/LivingEntity	jumping	Z
+accessible	field	net/minecraft/entity/LivingEntity	jumpingCooldown	I
+accessible	field	net/minecraft/entity/mob/CreeperEntity	explosionRadius	I
+accessible	field	net/minecraft/entity/player/ItemCooldownManager	entries	Ljava/util/Map;
+accessible	field	net/minecraft/entity/projectile/FishingBobberEntity	caughtFish	Z
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket	entityId	I
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket	type	Lnet/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler;
+accessible	field	net/minecraft/network/packet/c2s/play/PlayerMoveC2SPacket	onGround	Z
+mutable	field	net/minecraft/network/packet/c2s/play/PlayerMoveC2SPacket	onGround	Z
+accessible	field	net/minecraft/network/packet/s2c/play/WorldTimeUpdateS2CPacket	timeOfDay	J
+mutable	field	net/minecraft/network/packet/s2c/play/WorldTimeUpdateS2CPacket	timeOfDay	J
+accessible	method	net/minecraft/client/MinecraftClient	doAttack	()Z
+accessible	method	net/minecraft/client/gui/hud/ChatHud	addVisibleMessage	(Lnet/minecraft/client/gui/hud/ChatHudLine;)V
+accessible	method	net/minecraft/client/gui/hud/ChatHud	logChatMessage	(Lnet/minecraft/client/gui/hud/ChatHudLine;)V
+accessible	method	net/minecraft/client/input/KeyboardInput	getMovementMultiplier	(ZZ)F
+accessible	method	net/minecraft/client/network/ClientPlayerInteractionManager	sendSequencedPacket	(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/client/network/SequencedPacketCreator;)V
+accessible	method	net/minecraft/client/network/ClientPlayerInteractionManager	syncSelectedSlot	()V
+accessible	method	net/minecraft/client/render/Camera	setRotation	(FF)V
+accessible	method	net/minecraft/client/render/Camera	setPos	(Lnet/minecraft/util/math/Vec3d;)V
+accessible	method	net/minecraft/client/render/item/ItemRenderState	getFirstLayer	()Lnet/minecraft/client/render/item/ItemRenderState$LayerRenderState;
+accessible	method	net/minecraft/client/texture/NativeImage	write	(Ljava/nio/channels/WritableByteChannel;)Z
+accessible	method	net/minecraft/entity/Entity	isAlwaysInvulnerableTo	(Lnet/minecraft/entity/damage/DamageSource;)Z
+accessible	method	net/minecraft/entity/Entity	movementInputToVelocity	(Lnet/minecraft/util/math/Vec3d;FF)Lnet/minecraft/util/math/Vec3d;
+accessible	method	net/minecraft/entity/LivingEntity	applyArmorToDamage	(Lnet/minecraft/entity/damage/DamageSource;F)F
+accessible	method	net/minecraft/entity/LivingEntity	computeFallDamage	(FF)I
+accessible	method	net/minecraft/entity/LivingEntity	modifyAppliedDamage	(Lnet/minecraft/entity/damage/DamageSource;F)F
+accessible	method	net/minecraft/entity/player/PlayerEntity	getVelocityMultiplier	()F

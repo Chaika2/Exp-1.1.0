@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "expa",
+  "version": "${version}",
+  "name": "ZortexDLC",
+  "description": "Expensive-based client by ZortexDLC",
+  "authors": [],
+  "license": "All-Rights-Reserved",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ru.expensive.ExpaClientInit"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "expa.mixins.json"
+  ],
+  "accessWidener": "expa.accesswidener"
+}

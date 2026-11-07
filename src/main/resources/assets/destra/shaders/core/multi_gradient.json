@@ -1,0 +1,40 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "srcalpha",
+    "dstrgb": "1-srcalpha"
+  },
+  "vertex": "destra:core/multi_gradient",
+  "fragment": "destra:core/multi_gradient",
+  "attributes": [
+    { "name": "UV0" }
+  ],
+  "samplers": [],
+  "uniforms": [
+    { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1] },
+    { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1] },
+    { "name": "size", "type": "float", "count": 2, "values": [200.0, 60.0] },
+    { "name": "colorCount", "type": "int", "count": 1, "values": [2] },
+    { "name": "gradientDirection", "type": "int", "count": 1, "values": [0] },
+    { "name": "cornerRadius", "type": "float", "count": 4, "values": [12.0, 12.0, 12.0, 12.0] },
+
+    // ←←← Вот эти массивы ОБЯЗАТЕЛЬНО нужно добавить:
+    { "name": "colors[0]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[1]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[2]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[3]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[4]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[5]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[6]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "colors[7]", "type": "float", "count": 4, "values": [1.0, 1.0, 1.0, 1.0] },
+
+    { "name": "stops[0]", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "stops[1]", "type": "float", "count": 1, "values": [0.2] },
+    { "name": "stops[2]", "type": "float", "count": 1, "values": [0.4] },
+    { "name": "stops[3]", "type": "float", "count": 1, "values": [0.6] },
+    { "name": "stops[4]", "type": "float", "count": 1, "values": [0.8] },
+    { "name": "stops[5]", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "stops[6]", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "stops[7]", "type": "float", "count": 1, "values": [1.0] }
+  ]
+}

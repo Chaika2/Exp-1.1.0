@@ -1,0 +1,27 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "srcalpha",
+    "dstrgb": "1-srcalpha"
+  },
+  "vertex": "destra:core/rounded_head",
+  "fragment": "destra:core/rounded_head",
+  "attributes": [],
+  "samplers": [
+    { "name": "Sampler0" }
+  ],
+  "uniforms": [
+    { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
+    { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0] },
+    { "name": "size", "type": "float", "count": 2, "values": [64.0, 64.0] },
+    { "name": "radius", "type": "float", "count": 1, "values": [12.0] },
+    { "name": "hurt_time", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "alpha", "type": "float", "count": 1, "values": [1.0] },
+    { "name": "startX", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "endX", "type": "float", "count": 1, "values": [64.0] },
+    { "name": "startY", "type": "float", "count": 1, "values": [0.0] },
+    { "name": "endY", "type": "float", "count": 1, "values": [64.0] },
+    { "name": "texXSize", "type": "float", "count": 1, "values": [64.0] },
+    { "name": "texYSize", "type": "float", "count": 1, "values": [64.0] }
+  ]
+}

@@ -1,0 +1,9 @@
+#version 330 core
+in vec2 uv; out vec4 outColor;
+uniform sampler2D TrailTexture,GlowTexture,HandTexture,MaskTexture;
+uniform vec2 resolution; uniform float time,fillMode,radiusPx,strength,flameSpeed,colorMix,decay,flameHeightPx,trailStrength; uniform vec3 fireColor;
+float hash12(vec2 p){vec3 p3=fract(vec3(p.xyx)*.1031);p3+=dot(p3,p3.yzx+33.33);return fract((p3.x+p3.y)*p3.z);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(hash12(i),hash12(i+vec2(1,0)),u.x),mix(hash12(i+vec2(0,1)),hash12(i+1.),u.x),u.y);}
+void main(){vec2 px=1./resolution;float ft=time*flameSpeed;float ca=noise(uv*vec2(4.8,7.2)+vec2(ft*.18,-ft*.28)),cb=noise(uv*vec2(10,13)+vec2(-ft*.22,ft*.16));float ang=(ca*2.-1.)*2.15+sin((uv.y+cb)*12.+ft*1.7)*.74;float lift=mix(.42,1.28,clamp(flameHeightPx/56.,0.,1.));vec2 flow=vec2(cos(ang)*.86,-lift+sin(ang)*.42)*px*flameSpeed;
+ vec4 prev=texture(TrailTexture,uv+flow)*.58;prev+=texture(TrailTexture,uv+flow+vec2(px.x,0)*1.35)*.12;prev+=texture(TrailTexture,uv+flow-vec2(px.x,0)*1.35)*.12;prev+=texture(TrailTexture,uv+flow+vec2(0,px.y)*1.15)*.09;prev+=texture(TrailTexture,uv+flow-vec2(0,px.y)*1.15)*.09;prev*=decay;
+ vec4 gl=texture(GlowTexture,uv);vec3 hand=texture(HandTexture,uv).rgb;float hm=clamp(texture(MaskTexture,uv).r,0.,1.),outside=1.-smoothstep(.02,.24,hm);float broken=noise(uv*vec2(16,25)+vec2(ft*.35,-ft*.82));float ribbon=sin((uv.x-uv.y*.34)*34.+ft*4.2+ca*5.5)*.5+.5;float curl=smoothstep(.2,.9,broken)*.55+smoothstep(.34,.98,ribbon)*.45;float fa=gl.a*outside*(.28+curl*.42),ta=hm*(.42+gl.a*.18);vec3 tinted=mix(hand,fireColor,clamp(colorMix,0.,1.));vec3 src=tinted*ta+gl.rgb*fa;float sa=clamp(max(ta,fa),0.,.74);float oa=1.-(1.-prev.a)*(1.-clamp(sa,0.,.68));vec3 rgb=prev.rgb+src*(1.-prev.a*.38);outColor=vec4(clamp(rgb,0.,1.),clamp(oa,0.,.88));}

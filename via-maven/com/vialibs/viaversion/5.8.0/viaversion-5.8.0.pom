@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.vialibs</groupId>
+    <artifactId>viaversion</artifactId>
+    <version>5.8.0</version>
+</project>

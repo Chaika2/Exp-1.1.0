@@ -1,0 +1,37 @@
+# ---- Gradle / build ----
+.gradle/
+build/
+out/
+*.class
+
+# ---- IDE ----
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# ---- Local run data, logs, configs ----
+run/
+logs/
+*.log
+*.tmp
+
+# ---- Local backups ----
+backup/
+backup_pre_celestial_port/
+
+# ---- Build artifacts ----
+/*.jar
+/expa-*.jar
+*.exe
+launcher/launcher_config.ini
+
+# ---- Stray extracted classes ----
+/com/
+/sg/
+/META-INF/
+
+# ---- Root log dumps ----
+/*.txt
+!/readme.txt

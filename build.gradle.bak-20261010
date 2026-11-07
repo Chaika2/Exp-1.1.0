@@ -1,0 +1,111 @@
+plugins {
+    id "fabric-loom" version "1.16.2"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/expa.accesswidener")
+
+    runs {
+        client {
+            vmArg "-Dfile.encoding=UTF-8"
+            vmArg "-Dsun.stdout.encoding=UTF-8"
+            vmArg "-Dsun.stderr.encoding=UTF-8"
+        }
+        server {
+            vmArg "-Dfile.encoding=UTF-8"
+            vmArg "-Dsun.stdout.encoding=UTF-8"
+            vmArg "-Dsun.stderr.encoding=UTF-8"
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("via-maven")
+    }
+}
+
+configurations {
+    bundle
+    implementation.extendsFrom bundle
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    modImplementation files("libs/playeranimator.jar")
+    modImplementation files("libs/bendy-lib-fabric-5.1.jar")
+    modImplementation files("libs/destra-lib2.jar")
+
+    implementation files("libs/dreamix-original-profile-api.jar")
+
+    modImplementation "de.florianmichael:viafabricplus:4.0.5-BACKPORT"
+    modImplementation fileTree(dir: "via-maven/vfp-libs", include: [
+        "viafabricplus-api-*.jar",
+        "viafabricplus-api-legacy-*.jar",
+        "viafabricplus-visuals-*.jar"
+    ])
+    implementation files("via-maven/vfp-libs-merged.jar")
+
+
+    compileOnly "org.jetbrains:annotations:26.0.2-1"
+
+    bundle "org.json:json:20240303"
+    bundle "com.google.code.gson:gson:2.10.1"
+    bundle "com.squareup.okhttp3:okhttp:4.12.0"
+    bundle "com.squareup.retrofit2:retrofit:2.11.0"
+    bundle "com.squareup.retrofit2:converter-gson:2.11.0"
+    bundle "org.java-websocket:Java-WebSocket:1.5.7"
+    bundle "org.springframework:spring-websocket:6.1.13"
+    bundle "com.formdev:svgSalamander:1.1.4"
+    compileOnly "org.projectlombok:lombok:1.18.34"
+    annotationProcessor "org.projectlombok:lombok:1.18.34"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 21
+    options.compilerArgs.add("-Xlint:none")
+    options.compilerArgs.add("-nowarn")
+    options.compilerArgs.add("-Xmaxerrs")
+    options.compilerArgs.add("100000")
+    options.compilerArgs.add("-Xmaxwarns")
+    options.compilerArgs.add("1")
+    options.failOnError = true
+}
+
+tasks.processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.bundle.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA", "module-info.class"
+    }
+}
+

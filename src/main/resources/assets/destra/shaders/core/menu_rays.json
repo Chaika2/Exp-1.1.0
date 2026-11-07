@@ -1,0 +1,85 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "srcalpha",
+    "dstrgb": "1-srcalpha"
+  },
+  "vertex": "destra:core/menu_rays",
+  "fragment": "destra:core/menu_rays",
+  "attributes": [
+    "Position"
+  ],
+  "samplers": [],
+  "uniforms": [
+    {
+      "name": "ModelViewMat",
+      "type": "matrix4x4",
+      "count": 16,
+      "values": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ]
+    },
+    {
+      "name": "ProjMat",
+      "type": "matrix4x4",
+      "count": 16,
+      "values": [
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ]
+    },
+    {
+      "name": "u_resolution",
+      "type": "float",
+      "count": 2,
+      "values": [1.0, 1.0]
+    },
+    {
+      "name": "u_time",
+      "type": "float",
+      "count": 1,
+      "values": [0.0]
+    },
+    {
+      "name": "u_color1",
+      "type": "float",
+      "count": 4,
+      "values": [1.0, 0.349, 0.384, 0.72]
+    },
+    {
+      "name": "u_color2",
+      "type": "float",
+      "count": 4,
+      "values": [1.0, 0.349, 0.384, 0.72]
+    },
+    {
+      "name": "u_intensity",
+      "type": "float",
+      "count": 1,
+      "values": [0.2]
+    },
+    {
+      "name": "u_rays",
+      "type": "float",
+      "count": 1,
+      "values": [0.085]
+    },
+    {
+      "name": "u_reach",
+      "type": "float",
+      "count": 1,
+      "values": [0.35]
+    },
+    {
+      "name": "u_width",
+      "type": "float",
+      "count": 1,
+      "values": [0.08]
+    }
+  ]
+}
